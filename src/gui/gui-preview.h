@@ -119,7 +119,7 @@ struct _GuPreviewGui {
   GtkRadioMenuItem *page_layout_one_column;
 
   gchar *uri;
-  gint update_timer;
+  guint update_timer;
   gboolean preview_on_idle;
   gboolean errormode;
 

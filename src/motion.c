@@ -230,6 +230,7 @@ void motion_force_compile(GuMotion *mc)
 
 gboolean motion_idle_cb(gpointer user)
 {
+  GU_MOTION(user)->key_press_timer = 0;
   if (gui->previewgui->preview_on_idle)
     motion_do_compile(GU_MOTION(user));
   return FALSE;
