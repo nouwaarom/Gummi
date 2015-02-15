@@ -101,6 +101,8 @@ GummiGui* gui_init(GtkBuilder* builder)
     GTK_TEXT_VIEW(gtk_builder_get_object(builder, "errorview"));
   g->errorbuff =
     gtk_text_view_get_buffer(GTK_TEXT_VIEW(g->errorview));
+  g_object_ref(g->errorbuff);
+
   g->menu_spelling =
     GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "menu_spelling"));
   g->menu_snippets =
