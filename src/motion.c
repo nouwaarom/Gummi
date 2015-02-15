@@ -188,6 +188,10 @@ gpointer motion_compile_thread(gpointer data)
       continue;
     }
 
+    if (editor != gummi_get_active_editor()) {
+      g_mutex_unlock(&mc->compile_mutex);
+      continue;
+    }
     editortext = latex_update_workfile(latex, editor);
 
     precompile_ok = latex_precompile_check(editortext);
@@ -200,6 +204,10 @@ gpointer motion_compile_thread(gpointer data)
       continue;
     }
 
+    if (editor != gummi_get_active_editor()) {
+      g_mutex_unlock(&mc->compile_mutex);
+      continue;
+    }
     latex_update_pdffile(latex, editor);
     *mc->typesetter_pid = 0;
     g_mutex_unlock(&mc->compile_mutex);
