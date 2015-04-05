@@ -1,5 +1,5 @@
 /**
- * @file   project.h
+ * @file   project.c
  * @brief
  *
  * Copyright (C) 2009-2012 Gummi-Dev Team <alexvandermey@gmail.com>
