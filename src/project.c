@@ -30,6 +30,7 @@
 #include "project.h"
 
 #include <string.h>
+#include <glib.h>
 
 #include "configfile.h"
 #include "environment.h"
@@ -37,7 +38,10 @@
 #include "gui/gui-project.h"
 #include "utils.h"
 
-// XXX: needs refactor, non gui classes should no directly acces gui and gummi
+#include "constants.h"
+
+
+// XXX: needs refactor, non gui classes should not directly access gui and gummi
 // structure
 extern GummiGui* gui;
 extern Gummi* gummi;
@@ -56,10 +60,22 @@ GuProject* project_init(void)
 
 gboolean project_create_new(const gchar* filename)
 {
+  GError* err = NULL;
+
   const gchar* version = g_strdup("0.6.0");
   const gchar* csetter = config_get_value("typesetter");
   const gchar* csteps = config_get_value("compile_steps");
+
   const gchar* rootfile = g_active_editor->filename;
+  if(!rootfile) {
+    rootfile = g_strdup_printf("%s/main.tex" ,g_path_get_dirname(filename));
+    
+    if(!utils_copy_file(C_PROJECTTEXT, rootfile, &err)) {
+      slog(L_ERROR, "%s\n", err->message);
+      return FALSE;
+    }
+  }
+
   // TODO: do we need to encode this text?
   const gchar* content = g_strdup_printf("version=%s\n"
                                          "typesetter=%s\n"
@@ -73,9 +89,10 @@ gboolean project_create_new(const gchar* filename)
 
   statusbar_set_message(g_strdup_printf("Creating project file: %s",
                                         filename));
+
   utils_set_file_contents(filename, content, -1);
 
-  gummi->project->projfile = g_strdup(filename);
+  project_open_existing(filename);
 
   return TRUE;
 }

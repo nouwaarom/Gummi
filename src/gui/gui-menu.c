@@ -645,27 +645,11 @@ G_MODULE_EXPORT
 void on_menu_project_activate(GtkWidget *widget, void *user)
 {
   // TODO: perhaps use buffer to run pre compile check */
-
-  if (g_active_editor == NULL) {
-    gtk_widget_set_tooltip_text(GTK_WIDGET
-                                (gui->menugui->menu_projcreate),
-                                _("This function requires an active document"));
-    return;
-  }
-
   if (!gummi_project_active()) {
     gtk_widget_set_sensitive(GTK_WIDGET
                              (gui->menugui->menu_projopen), TRUE);
-    // TODO we should probably have functions for calls like this:
-    if (g_active_editor->filename != NULL) {
-      gtk_widget_set_sensitive(GTK_WIDGET
-                               (gui->menugui->menu_projcreate), TRUE);
-    } else {
-      gtk_widget_set_tooltip_text(GTK_WIDGET
-                                  (gui->menugui->menu_projcreate),
-                                  _("This function requires the current\n"
-                                    "active document to be saved. "));
-    }
+    gtk_widget_set_sensitive(GTK_WIDGET
+                             (gui->menugui->menu_projcreate), TRUE);
   } else {
     gtk_widget_set_sensitive(GTK_WIDGET
                              (gui->menugui->menu_projclose), TRUE);
@@ -686,7 +670,6 @@ void on_menu_project_deselect(GtkWidget *widget, void *user)
 G_MODULE_EXPORT
 void on_menu_projcreate_activate(GtkWidget *widget, void *user)
 {
-
   gchar* filename = get_save_filename(TYPE_PROJECT);
   if (!filename) return;
 
@@ -699,7 +682,6 @@ void on_menu_projcreate_activate(GtkWidget *widget, void *user)
 G_MODULE_EXPORT
 void on_menu_projopen_activate(GtkWidget *widget, void *user)
 {
-
   gchar* filename = get_open_filename(TYPE_PROJECT);
   if (!filename) return;
 
@@ -717,7 +699,6 @@ void on_menu_projopen_activate(GtkWidget *widget, void *user)
 G_MODULE_EXPORT
 void on_menu_projclose_activate(GtkWidget *widget, void *user)
 {
-
   if (!gummi->project->projfile) return;
 
   if (project_close()) {

@@ -4,7 +4,8 @@ desktopdir = $(datadir)/applications
 desktop_DATA = $(PACKAGE).desktop
 
 miscdir = $(datadir)/$(PACKAGE)/misc
-misc_DATA = default.tex
+misc_DATA = default.tex \
+            main.tex
 
 EXTRA_DIST = $(man_MANS) \
 	     $(desktop_DATA).in \

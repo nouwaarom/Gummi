@@ -1048,8 +1048,7 @@ and update preview.</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">This function requires the current
-active document to be saved. </property>
+                        <property name="image">image22</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_projcreate_activate" swapped="no"/>
                       </object>
