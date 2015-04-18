@@ -102,10 +102,10 @@ GuPrefsGui* prefsgui_init(GtkWindow* mainwindow)
     GTK_TREE_VIEW(gtk_builder_get_object(builder, "styleschemes_treeview"));
   p->list_styleschemes =
     GTK_LIST_STORE(gtk_builder_get_object(builder, "list_styleschemes"));
-  p->default_text =
-    GTK_TEXT_VIEW(gtk_builder_get_object(builder, "default_text"));
+  p->default_textview =
+    GTK_TEXT_VIEW(gtk_builder_get_object(builder, "default_textview"));
   p->default_buffer =
-    gtk_text_view_get_buffer(p->default_text);
+    gtk_text_view_get_buffer(p->default_textview);
   p->editor_font =
     GTK_FONT_BUTTON(gtk_builder_get_object(builder, "editor_font"));
   p->compile_scheme =
@@ -256,14 +256,7 @@ static void set_tab_editor_settings(GuPrefsGui* prefs)
 
 static void set_tab_fontcolor_settings(GuPrefsGui* prefs)
 {
-  const gchar* font = config_get_value("font");
-
-  PangoFontDescription* font_desc = pango_font_description_from_string(font);
-  gtk_widget_override_font(GTK_WIDGET(prefs->default_text), font_desc);
-  pango_font_description_free(font_desc);
-
-  gtk_font_button_set_font_name(prefs->editor_font,
-                                config_get_value("font"));
+  gtk_font_button_set_font_name(prefs->editor_font, config_get_value("font"));
   prefsgui_apply_style_scheme(prefs);
 }
 
@@ -273,7 +266,7 @@ static void set_tab_defaulttext_settings(GuPrefsGui* prefs)
   gchar* text = NULL;
 
   if (!g_file_get_contents(C_WELCOMETEXT, &text, NULL, NULL)) {
-    gtk_widget_set_sensitive(GTK_WIDGET(prefs->default_text), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(prefs->default_textview), FALSE);
     return;
   }
   gtk_text_buffer_set_text(prefs->default_buffer, text, -1);
@@ -664,10 +657,8 @@ void on_editor_font_set(GtkWidget* widget, void* user)
 
   slog(L_INFO, "setting font to %s\n", font);
   config_set_value("font", font);
-
   while (tab) {
-    gtk_widget_override_font(GTK_WIDGET
-                             (GU_TAB_CONTEXT(tab->data)->editor->view), font_desc);
+    editor_set_font(GU_TAB_CONTEXT(tab->data)->editor, font);
     tab = g_list_next(tab);
   }
   pango_font_description_free(font_desc);

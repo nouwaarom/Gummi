@@ -176,11 +176,18 @@ GummiGui* gui_init(GtkBuilder* builder)
   else
     gtk_window_set_position(g->mainwindow, GTK_WIN_POS_CENTER);
 
-  PangoFontDescription* font_desc =
-    pango_font_description_from_string("Monospace 8");
+  /* Set errorview font */
+  GtkCssProvider* css = gtk_css_provider_new();
+  GtkStyleContext* context = gtk_widget_get_style_context(
+      GTK_WIDGET(g->errorview));
+  gtk_style_context_add_provider(context,
+                                 GTK_STYLE_PROVIDER(css),
+                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  const gchar* style = "* { font: Monospace 8; }";
+  gtk_css_provider_load_from_data(css, style, -1, NULL);
 
-  gtk_widget_override_font(GTK_WIDGET(g->errorview), font_desc);
-  pango_font_description_free(font_desc);
+
+  /* Set pane size */
   gtk_window_get_size(g->mainwindow, &width, &height);
 
   hpaned = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned"));

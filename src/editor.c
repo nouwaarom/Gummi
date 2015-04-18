@@ -85,6 +85,13 @@ GuEditor* editor_new(GuMotion* mc)
   ec->editortags = gtk_text_buffer_get_tag_table(ec_buffer);
   ec->replace_activated = FALSE;
   ec->term = NULL;
+  ec->css = gtk_css_provider_new();
+
+  /* Set source view style provider so we can use ec->css to set font later */
+  GtkStyleContext* context = gtk_widget_get_style_context(GTK_WIDGET(ec->view));
+  gtk_style_context_add_provider(context,
+                                 GTK_STYLE_PROVIDER(ec->css),
+                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   gtk_source_view_set_tab_width(ec->view,
                                 atoi(config_get_value("tabwidth")));
@@ -300,6 +307,13 @@ void editor_fileinfo_cleanup(GuEditor* ec)
   ec->basename = NULL;
 }
 
+void editor_set_font(GuEditor* ec, const gchar* font)
+{
+  gchar* style = g_strdup_printf("* { font: %s; }", font);
+  gtk_css_provider_load_from_data(ec->css, style, -1, NULL);
+  g_free(style);
+}
+
 void editor_sourceview_config(GuEditor* ec)
 {
   GtkWrapMode wrapmode = 0;
@@ -309,14 +323,9 @@ void editor_sourceview_config(GuEditor* ec)
   const gchar* style_scheme = config_get_value("style_scheme");
   editor_set_style_scheme_by_id(ec, style_scheme);
 
-  const gchar* font = config_get_value("font");
-  slog(L_INFO, "setting font to %s\n", font);
-  PangoFontDescription* font_desc = pango_font_description_from_string(font);
-  gtk_widget_override_font(GTK_WIDGET(ec->view), font_desc);
-  pango_font_description_free(font_desc);
-
+  editor_set_font(ec, config_get_value("font"));
   gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(ec->view),
-                                        TO_BOOL(config_get_value("line_numbers")));
+                                     TO_BOOL(config_get_value("line_numbers")));
   gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(ec->view),
       TO_BOOL(config_get_value("highlighting")));
 
@@ -751,16 +760,16 @@ void editor_set_style_scheme_by_id(GuEditor* ec, const gchar* id)
 }
 
 
-static inline gdouble gdkcolor_luminance(GdkColor c)
+static inline gdouble gdk_rgba_luminance(GdkRGBA c)
 {
-  return (0.2126 * c.red + 0.7152 * c.green + 0.0722 * c.blue) / G_MAXUINT16;
+  return 0.2126 * c.red + 0.7152 * c.green + 0.0722 * c.blue;
 }
 
 
 /**
  *  Sets a object's fore- and background color to that of scheme's style
  *  "styleName". If no background color is defined in the style, defaultBG is
- *  used. defaultBG can be any valid parameter to gdk_color_parse().
+ *  used. defaultBG can be any valid parameter to gdk_rgba_parse().
  *  If only a foreground color was defined and it has not enough contrast to the
  *  default background, it will be overwritten. The foreground color will either
  *  be white or black, which has more contrast.
@@ -774,8 +783,8 @@ void set_style_fg_bg(GObject* obj, GtkSourceStyleScheme* scheme,
   gchar *fg = NULL;
   gboolean foreground_set;
   gboolean background_set;
-  GdkColor foreground;
-  GdkColor background;
+  GdkRGBA foreground;
+  GdkRGBA background;
 
 
   if (scheme == NULL) {
@@ -797,12 +806,12 @@ void set_style_fg_bg(GObject* obj, GtkSourceStyleScheme* scheme,
                NULL);
 
   if (foreground_set) {
-    if (fg == NULL || !gdk_color_parse(fg, &foreground))
+    if (fg == NULL || !gdk_rgba_parse(&foreground, fg))
       foreground_set = FALSE;
   }
 
   if (background_set) {
-    if (bg == NULL || !gdk_color_parse(bg, &background))
+    if (bg == NULL || !gdk_rgba_parse(&background, bg))
       background_set = FALSE;
   }
 
@@ -814,44 +823,45 @@ void set_style_fg_bg(GObject* obj, GtkSourceStyleScheme* scheme,
     // Do nothing
   } else if (!background_set && foreground_set) {
     // Set bg to default and check if fg has enough contrast
-    gdk_color_parse(defaultBG, &background);
-    gdouble diff = ABS(gdkcolor_luminance(foreground) -
-                       gdkcolor_luminance(background));
+    gdk_rgba_parse(&background, defaultBG);
+    gdouble diff = ABS(gdk_rgba_luminance(foreground) -
+                       gdk_rgba_luminance(background));
     if (diff < 0.5) {
       slog(L_INFO, "Style \"%s\" defines a foreground, but no background "
            "color. As the fourground color has not enough "
            "contrast to Gummis default background color, the "
            "foreground color has been adjusted.\n", styleName);
-      if (gdkcolor_luminance(background) > 0.5) {
-        gdk_color_parse("black", &foreground);
+      if (gdk_rgba_luminance(background) > 0.5) {
+        gdk_rgba_parse(&foreground, "black");
       } else {
-        gdk_color_parse("white", &foreground);
+        gdk_rgba_parse(&foreground, "white");
       }
     }
   } else if (background_set && !foreground_set) {
     // Choose a fg = white or black, which has more contrast
-    if (gdkcolor_luminance(background) > 0.5) {
-      gdk_color_parse("black", &foreground);
+    if (gdk_rgba_luminance(background) > 0.5) {
+      gdk_rgba_parse(&foreground, "black");
     } else {
-      gdk_color_parse("white", &foreground);
+      gdk_rgba_parse(&foreground, "white");
     }
   } else {
     // none set, set defaults
     goto set_style_fg_bg_return_defaults;
   }
 
-  g_object_set(obj, "foreground-gdk", &foreground,
-               "background-gdk", &background, NULL);
+  g_object_set(obj,
+               "foreground", gdk_rgba_to_string(&foreground),
+               "background", gdk_rgba_to_string(&background), NULL);
   return;
 
 set_style_fg_bg_return_defaults:
 
   // No valid style, set defaults
-  gdk_color_parse(defaultBG, &background);
-  if (gdkcolor_luminance(background) > 0.5) {
-    gdk_color_parse("black", &foreground);
+  gdk_rgba_parse(&background, defaultBG);
+  if (gdk_rgba_luminance(background) > 0.5) {
+    gdk_rgba_parse(&foreground, "black");
   } else {
-    gdk_color_parse("white", &foreground);
+    gdk_rgba_parse(&foreground, "white");
   }
 
   g_object_set(obj, "foreground-gdk", &foreground,

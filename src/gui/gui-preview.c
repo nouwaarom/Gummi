@@ -207,7 +207,16 @@ GuPreviewGui* previewgui_init(GtkBuilder * builder)
   p->vadj = gtk_scrolled_window_get_vadjustment
             (GTK_SCROLLED_WINDOW(p->scrollw));
 
-  gtk_widget_override_background_color(p->drawarea, GTK_STATE_NORMAL, &bg);
+  GtkCssProvider* css = gtk_css_provider_new();
+  GtkStyleContext* context = gtk_widget_get_style_context(
+      GTK_WIDGET(p->drawarea));
+  gtk_style_context_add_provider(context,
+                                 GTK_STYLE_PROVIDER(css),
+                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gchar* style = g_strdup_printf("* { background: %s; }",
+                                 gdk_rgba_to_string(&bg));
+  gtk_css_provider_load_from_data(css, style, -1, NULL);
+  g_free(style);
 
   /* Install event handlers */
   gtk_widget_add_events(p->drawarea, GDK_SCROLL_MASK

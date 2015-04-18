@@ -69,6 +69,7 @@ struct _GuEditor {
   GtkTextTagTable* editortags;
   gboolean replace_activated;
   gchar* term;
+  GtkCssProvider* css;
   gboolean backwards;
   gboolean wholeword;
   gboolean matchcase;
@@ -83,6 +84,7 @@ void editor_fileinfo_update(GuEditor* ec, const gchar* filename);
 void editor_fileinfo_cleanup(GuEditor* ec);
 gboolean editor_fileinfo_update_biblio(GuEditor* ec,  const gchar* filename);
 void editor_destroy(GuEditor* ec);
+void editor_set_font(GuEditor* ec, const char* font);
 void editor_sourceview_config(GuEditor* ec);
 #ifdef USE_GTKSPELL
 void editor_activate_spellchecking(GuEditor* ec, gboolean status);

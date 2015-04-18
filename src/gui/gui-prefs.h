@@ -55,7 +55,7 @@ struct _GuPrefsGui {
   GtkComboBoxText* combo_languages;
   GtkTreeView* styleschemes_treeview;
   GtkListStore* list_styleschemes;
-  GtkTextView* default_text;
+  GtkTextView* default_textview;
   GtkTextBuffer* default_buffer;
   GtkFontButton* editor_font;
   GtkComboBox* compile_scheme;
