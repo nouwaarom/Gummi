@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.12"/>
   <object class="GtkWindow" id="errorwindow">
     <property name="can_focus">False</property>
     <child>
@@ -15,8 +15,8 @@
           <object class="GtkLabel" id="error_header">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="yalign">1</property>
             <property name="label" translatable="yes">PDF Preview could not initialise.</property>
+            <property name="yalign">1</property>
             <attributes>
               <attribute name="weight" value="semibold"/>
             </attributes>
@@ -31,7 +31,7 @@
           <object class="GtkImage" id="error_image">
             <property name="can_focus">False</property>
             <property name="no_show_all">True</property>
-            <property name="stock">gtk-dialog-warning</property>
+            <property name="icon_name">dialog-warning</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -43,10 +43,10 @@
           <object class="GtkLabel" id="error_details">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="yalign">0</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
             <property name="wrap_mode">char</property>
+            <property name="yalign">0</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -60,102 +60,18 @@
   <object class="GtkImage" id="im_bibcompile">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-execute</property>
+    <property name="icon_name">system-run</property>
   </object>
   <object class="GtkImage" id="im_bibdetect">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
+    <property name="icon_name">edit-find</property>
   </object>
   <object class="GtkImage" id="im_updatechk">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="pixel_size">16</property>
     <property name="icon_name">system-software-update</property>
-  </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-info</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image10">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-refresh</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image19">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-preferences</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-clear</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image21">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-execute</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image22">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-new</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image23">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-open</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image27">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-close</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-execute</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-open</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-save-as</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-info</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-new</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image9">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">16</property>
-    <property name="icon_name">emblem-documents</property>
   </object>
   <object class="GtkAdjustment" id="image_scaler">
     <property name="lower">0.10000000000000001</property>
@@ -177,18 +93,14 @@
           <object class="GtkGrid" id="grid1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">7</property>
-            <property name="margin_bottom">7</property>
             <property name="row_spacing">5</property>
             <child>
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">File:</property>
                 <property name="justify">fill</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -200,9 +112,9 @@
                 <property name="width_request">80</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Caption:</property>
                 <property name="justify">fill</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -213,8 +125,8 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Label:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -227,7 +139,7 @@
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="invisible_char">•</property>
-                <property name="secondary_icon_stock">gtk-open</property>
+                <property name="secondary_icon_name">document-open</property>
                 <property name="primary_icon_activatable">False</property>
                 <signal name="icon-press" handler="on_image_file_activate" swapped="no"/>
               </object>
@@ -270,8 +182,8 @@
               <object class="GtkLabel" id="label5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Scale:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -307,7 +219,6 @@
           <object class="GtkBox" id="vbox16">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_bottom">3</property>
             <property name="border_width">5</property>
             <property name="orientation">vertical</property>
             <child>
@@ -319,7 +230,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_image_apply_clicked" swapped="no"/>
               </object>
@@ -355,16 +265,14 @@
           <object class="GtkGrid" id="grid2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_top">7</property>
-            <property name="margin_bottom">7</property>
             <property name="column_spacing">5</property>
             <child>
               <object class="GtkLabel" id="label22">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">File:</property>
                 <property name="justify">fill</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -378,7 +286,7 @@
                 <property name="hexpand">True</property>
                 <property name="editable">False</property>
                 <property name="invisible_char">•</property>
-                <property name="secondary_icon_stock">gtk-open</property>
+                <property name="secondary_icon_name">document-open</property>
                 <property name="primary_icon_activatable">False</property>
                 <signal name="icon-press" handler="on_biblio_file_activate" swapped="no"/>
               </object>
@@ -408,7 +316,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_biblio_apply_clicked" swapped="no"/>
               </object>
@@ -564,20 +471,18 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image7</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_template_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_open">
-                        <property name="label" translatable="yes">_Open...</property>
+                        <property name="label">gtk-open</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image4</property>
-                        <property name="use_stock">False</property>
+                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_menu_open_activate" swapped="no"/>
                         <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
@@ -602,13 +507,12 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_saveas">
-                        <property name="label" translatable="yes">Save _As...</property>
+                        <property name="label">gtk-save-as</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image5</property>
-                        <property name="use_stock">False</property>
+                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_menu_saveas_activate" swapped="no"/>
                         <accelerator key="s" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
@@ -620,7 +524,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image9</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_export_activate" swapped="no"/>
                         <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
@@ -725,24 +628,24 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_undo">
-                        <property name="label">gtk-undo</property>
+                        <property name="label">_Undo</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_undo_activate" swapped="no"/>
                         <accelerator key="z" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_redo">
-                        <property name="label">gtk-redo</property>
+                        <property name="label">_Redo</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_redo_activate" swapped="no"/>
                         <accelerator key="z" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
@@ -755,49 +658,49 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_cut">
-                        <property name="label">gtk-cut</property>
+                        <property name="label">C_ut</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="border_width">1</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_cut_activate" swapped="no"/>
                         <accelerator key="x" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_copy">
-                        <property name="label">gtk-copy</property>
+                        <property name="label">_Copy</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_copy_activate" swapped="no"/>
                         <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_paste">
-                        <property name="label">gtk-paste</property>
+                        <property name="label">_Paste</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_paste_activate" swapped="no"/>
                         <accelerator key="v" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_delete">
-                        <property name="label">gtk-delete</property>
+                        <property name="label">_Delete</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_delete_activate" swapped="no"/>
                       </object>
                     </child>
@@ -809,12 +712,12 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_selectall">
-                        <property name="label">gtk-select-all</property>
+                        <property name="label">S_elect All</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_selectall_activate" swapped="no"/>
                         <accelerator key="a" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
@@ -827,12 +730,12 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="menu_preferences">
-                        <property name="label">gtk-preferences</property>
+                        <property name="label">_Preferences</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_preferences_activate" swapped="no"/>
                       </object>
                     </child>
@@ -1028,7 +931,6 @@
                         <property name="tooltip_text" translatable="yes">Compile LaTeX document
 and update preview.</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image10</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_pdfcompile_activate" swapped="no"/>
                         <accelerator key="F9" signal="activate"/>
@@ -1040,7 +942,6 @@ and update preview.</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image19</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_compileopts_activate" swapped="no"/>
                       </object>
@@ -1058,7 +959,6 @@ and update preview.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image2</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_cleanup_activate" swapped="no"/>
                       </object>
@@ -1070,7 +970,6 @@ and update preview.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image21</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_runmakeindex_activate" swapped="no"/>
                       </object>
@@ -1082,7 +981,6 @@ and update preview.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image3</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_runbibtex_activate" swapped="no"/>
                       </object>
@@ -1100,7 +998,6 @@ and update preview.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image6</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_docstat_activate" swapped="no"/>
                       </object>
@@ -1157,7 +1054,6 @@ and update preview.</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">This function requires the current
 active document to be saved. </property>
-                        <property name="image">image22</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_projcreate_activate" swapped="no"/>
                       </object>
@@ -1168,7 +1064,6 @@ active document to be saved. </property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image23</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_projopen_activate" swapped="no"/>
                       </object>
@@ -1180,7 +1075,6 @@ active document to be saved. </property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image27</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_projclose_activate" swapped="no"/>
                       </object>
@@ -1207,7 +1101,6 @@ active document to be saved. </property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image1</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_menu_guide_activate" swapped="no"/>
                       </object>
@@ -1851,9 +1744,9 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="label14">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
                                     <property name="label" translatable="yes">Nr of files:</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -1864,10 +1757,10 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="label13">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
                                     <property name="label" translatable="yes">Root path:</property>
                                     <property name="ellipsize">end</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -1878,10 +1771,10 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="label26">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
                                     <property name="label" translatable="yes">Project name:</property>
                                     <property name="ellipsize">middle</property>
+                                    <property name="xalign">0</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1895,9 +1788,9 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="proj_name">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
                                     <property name="ellipsize">end</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1908,9 +1801,9 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="proj_path">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
                                     <property name="ellipsize">start</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1921,8 +1814,8 @@ active document to be saved. </property>
                                   <object class="GtkLabel" id="proj_nroffiles">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="xpad">10</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2009,7 +1902,6 @@ active document to be saved. </property>
                                     <property name="receives_default">True</property>
                                     <property name="tooltip_text" translatable="yes">Select a file to add it 
 to the active project. </property>
-                                    <property name="use_stock">True</property>
                                     <property name="focus_on_click">False</property>
                                     <signal name="clicked" handler="on_projfile_add_clicked" swapped="no"/>
                                   </object>
@@ -2029,7 +1921,6 @@ to the active project. </property>
                                     <property name="receives_default">True</property>
                                     <property name="tooltip_text" translatable="yes">Remove the selected
 file from the project.</property>
-                                    <property name="use_stock">True</property>
                                     <property name="focus_on_click">False</property>
                                     <signal name="clicked" handler="on_projfile_rem_clicked" swapped="no"/>
                                   </object>
@@ -2069,7 +1960,6 @@ file from the project.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="border_width">4</property>
-                        <property name="resize_mode">queue</property>
                         <child>
                           <object class="GtkBox" id="vbox5">
                             <property name="visible">True</property>
@@ -2449,8 +2339,8 @@ bibliography database</property>
               <object class="GtkLabel" id="label20">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Words in:</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -2486,8 +2376,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label18">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">text</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2499,9 +2389,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_words">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2536,8 +2426,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label203">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">headers</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2549,9 +2439,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_head">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2586,8 +2476,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label23">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">float captions</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2599,9 +2489,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_float">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2627,8 +2517,8 @@ bibliography database</property>
               <object class="GtkLabel" id="label36">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Number of:</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -2664,8 +2554,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label28">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">headers</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2677,9 +2567,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_nrhead">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2714,8 +2604,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label31">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">floats</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2727,9 +2617,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_nrfloat">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2764,8 +2654,8 @@ bibliography database</property>
                       <object class="GtkLabel" id="label34">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">math environments</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2777,9 +2667,9 @@ bibliography database</property>
                       <object class="GtkLabel" id="stats_nrmath">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">1</property>
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes">0</property>
+                        <property name="xalign">1</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2820,7 +2710,6 @@ bibliography database</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_docstats_close_clicked" swapped="no"/>
               </object>
               <packing>
@@ -2883,7 +2772,7 @@ bibliography database</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="invisible_char">•</property>
-                <property name="primary_icon_stock">gtk-find</property>
+                <property name="primary_icon_name">edit-find</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
                 <signal name="activate" handler="on_button_searchwindow_find_clicked" swapped="no"/>
@@ -2926,7 +2815,7 @@ bibliography database</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
-                <property name="primary_icon_stock">gtk-find-and-replace</property>
+                <property name="primary_icon_name">edit-find-replace</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
               </object>
@@ -3210,7 +3099,6 @@ more information.
               <object class="GtkViewport" id="viewport3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="resize_mode">queue</property>
                 <property name="shadow_type">etched-out</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
@@ -3287,7 +3175,6 @@ more information.
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Make a template from the 
 current active document.</property>
-                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_add_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3306,7 +3193,6 @@ current active document.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Deletes the selected template</property>
-                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_remove_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3335,7 +3221,6 @@ current active document.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Open the selected template</property>
-                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_open_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3351,7 +3236,6 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_close_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3385,7 +3269,6 @@ current active document.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="no_show_all">True</property>
-    <property name="resize_mode">queue</property>
     <child>
       <object class="GtkBox" id="hbox17">
         <property name="visible">True</property>
@@ -3394,10 +3277,6 @@ current active document.</property>
           <object class="GtkGrid" id="table2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">7</property>
-            <property name="margin_bottom">7</property>
             <property name="border_width">5</property>
             <property name="row_spacing">5</property>
             <property name="column_spacing">5</property>
@@ -3405,8 +3284,8 @@ current active document.</property>
               <object class="GtkLabel" id="label8">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Rows:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -3478,8 +3357,8 @@ current active document.</property>
               <object class="GtkLabel" id="label9">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Columns:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -3509,7 +3388,6 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_matrix_apply_clicked" swapped="no"/>
               </object>
@@ -3548,7 +3426,6 @@ current active document.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="no_show_all">True</property>
-    <property name="resize_mode">queue</property>
     <child>
       <object class="GtkBox" id="hbox19">
         <property name="visible">True</property>
@@ -3557,10 +3434,6 @@ current active document.</property>
           <object class="GtkGrid" id="table1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">7</property>
-            <property name="margin_bottom">7</property>
             <property name="border_width">5</property>
             <property name="row_spacing">5</property>
             <property name="column_spacing">5</property>
@@ -3568,8 +3441,8 @@ current active document.</property>
               <object class="GtkLabel" id="label6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Rows:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -3648,8 +3521,8 @@ current active document.</property>
               <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Columns:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -3679,7 +3552,6 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_table_apply_clicked" swapped="no"/>
               </object>
@@ -3702,7 +3574,6 @@ current active document.</property>
   </object>
   <object class="GtkMessageDialog" id="w32popup">
     <property name="can_focus">False</property>
-    <property name="margin_bottom">8</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="buttons">close</property>
