@@ -230,6 +230,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_image_apply_clicked" swapped="no"/>
               </object>
@@ -316,6 +317,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_biblio_apply_clicked" swapped="no"/>
               </object>
@@ -2710,6 +2712,7 @@ bibliography database</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_docstats_close_clicked" swapped="no"/>
               </object>
               <packing>
@@ -2776,9 +2779,9 @@ bibliography database</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
                 <signal name="activate" handler="on_button_searchwindow_find_clicked" swapped="no"/>
+                <accelerator key="Escape" signal="activate" modifiers="GDK_SHIFT_MASK"/>
+                <accelerator key="Escape" signal="activate" modifiers="GDK_SHIFT_MASK"/>
                 <accelerator key="Return" signal="activate"/>
-                <accelerator key="Escape" signal="activate" modifiers="GDK_SHIFT_MASK"/>
-                <accelerator key="Escape" signal="activate" modifiers="GDK_SHIFT_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -3175,6 +3178,7 @@ more information.
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Make a template from the 
 current active document.</property>
+                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_add_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3193,6 +3197,7 @@ current active document.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Deletes the selected template</property>
+                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_remove_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3221,6 +3226,7 @@ current active document.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Open the selected template</property>
+                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_open_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3236,6 +3242,7 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_button_template_close_clicked" swapped="no"/>
               </object>
               <packing>
@@ -3388,6 +3395,7 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_matrix_apply_clicked" swapped="no"/>
               </object>
@@ -3552,6 +3560,7 @@ current active document.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_import_table_apply_clicked" swapped="no"/>
               </object>
