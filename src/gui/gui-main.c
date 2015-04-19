@@ -892,7 +892,7 @@ gchar* get_save_filename(GuFilterType type)
                                gui->mainwindow,
                                GTK_FILE_CHOOSER_ACTION_SAVE,
                                _("_Cancel"), GTK_RESPONSE_CANCEL,
-                               _("_Open"), GTK_RESPONSE_OK,
+                               _("_Save"), GTK_RESPONSE_OK,
                                NULL));
 
   file_dialog_set_filter(chooser, type);
