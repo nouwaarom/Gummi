@@ -175,8 +175,7 @@ gpointer motion_compile_thread(gpointer data)
     slog(L_DEBUG, "Compile thread awoke.\n");
 
     if (!(editor = gummi_get_active_editor())) {
-      g_mutex_unlock(&mc->compile_mutex);
-      continue;
+      goto cont;
     }
     if (!mc->keep_running) {
       g_mutex_unlock(&mc->compile_mutex);
@@ -184,29 +183,26 @@ gpointer motion_compile_thread(gpointer data)
     }
 
     if (mc->pause) {
-      g_mutex_unlock(&mc->compile_mutex);
-      continue;
+      goto cont;
     }
 
     if (editor != gummi_get_active_editor()) {
-      g_mutex_unlock(&mc->compile_mutex);
-      continue;
+      goto cont;
     }
-    editortext = latex_update_workfile(latex, editor);
 
+    editortext = latex_update_workfile(latex, editor);
     precompile_ok = latex_precompile_check(editortext);
     g_free(editortext);
 
     if (!precompile_ok) {
       gdk_threads_add_idle(on_document_error, "document_error");
-      g_mutex_unlock(&mc->compile_mutex);
-      continue;
+      goto cont;
     }
 
     if (editor != gummi_get_active_editor()) {
-      g_mutex_unlock(&mc->compile_mutex);
-      continue;
+      goto cont;
     }
+
     latex_update_pdffile(latex, editor);
     *mc->typesetter_pid = 0;
     g_mutex_unlock(&mc->compile_mutex);
@@ -215,6 +211,11 @@ gpointer motion_compile_thread(gpointer data)
       g_thread_exit(NULL);
 
     gdk_threads_add_idle(on_document_compiled, editor);
+    continue;
+
+cont:
+    g_mutex_unlock(&mc->compile_mutex);
+    continue;
   }
 }
 
