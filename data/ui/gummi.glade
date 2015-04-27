@@ -1899,6 +1899,7 @@ active document to be saved. </property>
                                     <property name="tooltip_text" translatable="yes">Select a file to add it 
 to the active project. </property>
                                     <property name="focus_on_click">False</property>
+                                    <property name="use_stock">True</property>
                                     <signal name="clicked" handler="on_projfile_add_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -1918,6 +1919,7 @@ to the active project. </property>
                                     <property name="tooltip_text" translatable="yes">Remove the selected
 file from the project.</property>
                                     <property name="focus_on_click">False</property>
+                                    <property name="use_stock">True</property>
                                     <signal name="clicked" handler="on_projfile_rem_clicked" swapped="no"/>
                                   </object>
                                   <packing>
