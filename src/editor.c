@@ -67,10 +67,12 @@ GuEditor* editor_new(GuMotion* mc)
   /* File related member initialization */
   ec->workfd = -1;
   ec->fdname = NULL;
-  ec->filename = NULL;   /* current opened file name in workspace */
-  ec->basename = NULL;   /* use this to form .dvi/.ps/.log etc. files */
-  ec->pdffile = NULL;
+  ec->rootname = NULL;
+  ec->filename = NULL;
+  ec->basename = NULL;
   ec->workfile = NULL;
+  ec->targetfile = NULL;
+  ec->pdffile = NULL;
   ec->bibfile = NULL;
   ec->projfile = NULL;
 
@@ -236,6 +238,115 @@ void editor_fileinfo_update(GuEditor* ec, const gchar* filename)
     ec->basename = g_strdup(ec->fdname);
     ec->pdffile =  g_strdup_printf("%s.pdf", ec->fdname);
   }
+
+  /* Point target file to workfile */
+  ec->targetfile = g_strdup(ec->workfile);
+}
+
+/*
+ * Copy the root file to basename, and replace the correct \input, \include
+ * filename.
+ */
+static void editor_copy_root_file(GuEditor* ec)
+{
+  GError* err = NULL;
+  gchar* text = NULL;
+
+  if (!g_file_get_contents(ec->rootname, &text, NULL, &err)) {
+    slog(L_G_ERROR, "Could not find root TeX `%s'\n", ec->rootname);
+    g_error_free(err);
+    return;
+  }
+
+  struct pattern {
+    const gchar* pattern;
+    const gchar* replace;
+  };
+
+  struct pattern patterns[] = {
+    { "\\\\input{.*/?%s}", "\\input{%s}" },
+    { "\\\\include{.*/?%s}", "\\include{%s}" },
+  };
+
+  gchar* basename = g_path_get_basename(ec->filename);
+  if (STR_EQU(basename + strlen(basename) - 4, ".tex")) {
+    basename[strlen(basename) - 4] = 0;
+  }
+
+  GRegex* rx = NULL;
+
+  int i = 0;
+  for (i = 0; i < sizeof(patterns) / sizeof(patterns[0]); ++i) {
+    gchar* pat = g_strdup_printf(patterns[i].pattern, basename);
+    if (!(rx = g_regex_new(pat, G_REGEX_CASELESS, 0, &err))) {
+      slog(L_ERROR, "g_regex_new (): %s\n", err->message);
+      g_error_free(err);
+      g_free(pat);
+      break;
+    }
+
+    gchar* rpl = g_strdup_printf(patterns[i].replace, ec->workfile);
+    gchar* result = g_regex_replace_literal(rx, text, -1, 0, rpl, 0, &err);
+
+    if (result) {
+      g_free(text);
+      text = result;
+    }
+    g_free(pat);
+    g_free(rpl);
+    g_regex_unref(rx);
+  }
+
+  if (!g_file_set_contents(ec->targetfile, text, -1, &err)) {
+    slog(L_G_ERROR, "can not save root tex to `%s'\n", ec->basename);
+  }
+
+  g_free(basename);
+}
+
+static void editor_fileinfo_set_rootname(GuEditor* ec, const gchar* filename)
+{
+  if (!filename) {
+    return;
+  }
+
+  gchar* base_filename = g_path_get_basename(filename);
+  gchar* dir_filename = g_path_get_dirname(filename);
+
+  gchar* dirname = g_path_get_dirname(ec->workfile);
+  gchar* rootname = g_strdup_printf("%s%c%s", dirname, G_DIR_SEPARATOR,
+                                    filename);
+  if (STR_EQU(ec->rootname, rootname)) {
+    editor_copy_root_file(ec);
+    g_free(dirname);
+    g_free(rootname);
+    return;
+  }
+
+  g_free(ec->rootname);
+  g_free(ec->basename);
+  g_free(ec->pdffile);
+  g_free(ec->targetfile);
+
+  ec->rootname = rootname;
+  ec->basename = g_strdup_printf("%s%c%s%c.%s", dirname, G_DIR_SEPARATOR,
+                                 dir_filename, G_DIR_SEPARATOR,
+                                 base_filename);
+  ec->pdffile = g_strdup_printf("%s%c.%s.pdf", C_TMPDIR, G_DIR_SEPARATOR,
+                                base_filename);
+  ec->targetfile = g_strdup_printf("%s%c%s%c.%s.root", dirname, G_DIR_SEPARATOR,
+                                   dir_filename, G_DIR_SEPARATOR,
+                                   base_filename);
+
+  slog(L_INFO, "Root file detected, setting environment:\n");
+  slog(L_INFO, "ROOT: %s\n", ec->rootname);
+  slog(L_INFO, "PDF: %s\n", ec->pdffile);
+
+  editor_copy_root_file(ec);
+
+  g_free(dirname);
+  g_free(base_filename);
+  g_free(dir_filename);
 }
 
 gboolean editor_fileinfo_update_biblio(GuEditor* ec,  const gchar* filename)
@@ -290,6 +401,7 @@ void editor_fileinfo_cleanup(GuEditor* ec)
   g_remove(ec->workfile);
   g_remove(ec->pdffile);
   g_remove(ec->basename);
+  g_remove(ec->targetfile);
 
   g_free(auxfile);
   g_free(logfile);
@@ -385,6 +497,31 @@ gchar* editor_grab_buffer(GuEditor* ec)
   GtkTextIter start, end;
   gtk_text_buffer_get_bounds(ec_buffer, &start, &end);
   gchar* pstr = gtk_text_iter_get_text(&start, &end);
+
+
+  GError* err = NULL;
+  GRegex* rx = NULL;
+  GMatchInfo* match_info = NULL;
+  gchar* result = NULL;
+  const gchar* pattern = "%\\s*!TeX\\s+root\\s*=\\s*(\\S*)\\s*\n";
+
+  if (!(rx = g_regex_new(pattern, G_REGEX_CASELESS, 0, &err))) {
+    slog(L_ERROR, "g_regex_new (): %s\n", err->message);
+    g_error_free(err);
+    goto cleanup;
+  }
+
+  if (g_regex_match(rx, pstr, 0, &match_info)) {
+    if ((result = g_match_info_fetch(match_info, 1))) {
+      editor_fileinfo_set_rootname(ec, result);
+    }
+  }
+
+cleanup:
+  g_free(result);
+  g_match_info_free(match_info);
+  g_regex_unref(rx);
+
   return pstr;
 }
 

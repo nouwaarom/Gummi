@@ -191,13 +191,17 @@ gpointer motion_compile_thread(gpointer data)
     }
 
     editortext = latex_update_workfile(latex, editor);
-    precompile_ok = latex_precompile_check(editortext);
-    g_free(editortext);
 
-    if (!precompile_ok) {
-      gdk_threads_add_idle(on_document_error, "document_error");
-      goto cont;
+    /* Current TeX is not a included file, perform pre-comiple check */
+    if (editor->rootname == NULL) {
+      precompile_ok = latex_precompile_check(editortext);
+
+      if (!precompile_ok) {
+        gdk_threads_add_idle(on_document_error, "document_error");
+        goto cont;
+      }
     }
+    g_free(editortext);
 
     if (editor != gummi_get_active_editor()) {
       goto cont;

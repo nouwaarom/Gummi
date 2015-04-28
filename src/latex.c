@@ -98,17 +98,16 @@ gchar* latex_update_workfile(GuLatex* lc, GuEditor* ec)
 
 gchar* latex_set_compile_cmd(GuEditor* ec)
 {
-
   const gchar* method = config_get_value("compile_steps");
   gchar* combined = NULL;
   gchar* texcmd = NULL;
 
   if (rubber_active()) {
-    texcmd = rubber_get_command(method, ec->workfile);
+    texcmd = rubber_get_command(method, ec->targetfile);
   } else if (latexmk_active()) {
-    texcmd = latexmk_get_command(method, ec->workfile, ec->basename);
+    texcmd = latexmk_get_command(method, ec->targetfile, ec->basename);
   } else {
-    texcmd = texlive_get_command(method, ec->workfile, ec->basename);
+    texcmd = texlive_get_command(method, ec->targetfile, ec->basename);
   }
 
   combined = g_strdup_printf("%s %s", C_TEXSEC, texcmd);
@@ -133,9 +132,6 @@ gchar* latex_analyse_log(gchar* log, gchar* filename, gchar* basename)
   }
   return log;
 }
-
-
-
 
 void latex_analyse_errors(GuLatex* lc)
 {
@@ -186,8 +182,10 @@ void latex_update_pdffile(GuLatex* lc, GuEditor* ec)
   }
 
   /* create compile command */
-  gchar* curdir = g_path_get_dirname(ec->workfile);
+  gchar* curdir = g_path_get_dirname(ec->targetfile);
   gchar *command = latex_set_compile_cmd(ec);
+
+  slog(L_DEBUG, "Command: %s\n", command);
 
   g_free(lc->compilelog);
   memset(lc->errorlines, 0, BUFSIZ);
@@ -206,13 +204,14 @@ void latex_update_pdffile(GuLatex* lc, GuEditor* ec)
   }
 
   g_free(command);
+  g_free(curdir);
 
   lc->compile_status = cerrors == 0;
 }
 
 void latex_update_auxfile(GuLatex* lc, GuEditor* ec)
 {
-  gchar* dirname = g_path_get_dirname(ec->workfile);
+  gchar* dirname = g_path_get_dirname(ec->targetfile);
   gchar* command = g_strdup_printf("%s %s "
                                    "--draftmode "
                                    "-interaction=nonstopmode "
@@ -220,7 +219,7 @@ void latex_update_auxfile(GuLatex* lc, GuEditor* ec)
                                    C_TEXSEC,
                                    config_get_value("typesetter"),
                                    C_TMPDIR,
-                                   ec->workfile);
+                                   ec->targetfile);
   Tuple2 res = utils_popen_r(command, dirname);
   g_free(dirname);
   g_free(res.second);

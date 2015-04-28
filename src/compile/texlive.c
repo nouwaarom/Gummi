@@ -102,7 +102,6 @@ gboolean xelatex_detected(void)
 gchar* texlive_get_command(const gchar* method, gchar* workfile,
                            gchar* basename)
 {
-
   const gchar* outdir = g_strdup_printf("-output-directory=\"%s\"", C_TMPDIR);
 
 
@@ -135,8 +134,9 @@ gchar* texlive_get_command(const gchar* method, gchar* workfile,
                              flags, outdir, workfile, C_TMPDIR, dviname);
   } else {
     texcmd = g_strdup_printf("%s ps "
-                             "\"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\"", script,
-                             flags, outdir, workfile, C_TMPDIR, dviname, psname);
+                             "\"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\"",
+                             script, flags, outdir, workfile, C_TMPDIR,
+                             dviname, psname);
   }
 
   g_free(script);

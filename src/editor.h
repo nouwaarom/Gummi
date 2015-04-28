@@ -53,10 +53,12 @@ struct _GuEditor {
   /* File related members */
   gint workfd;
   gchar* fdname;
-  gchar* filename;
-  gchar* basename;
+  gchar* rootname;   /* root tex filename, if current file is include by it */
+  gchar* filename;   /* current opened file name in workspace */
+  gchar* basename;   /* use this to form .dvi/.ps/.log etc. files */
+  gchar* workfile;   /* filename of current editing file */
+  gchar* targetfile; /* target file to be compiled */
   gchar* pdffile;
-  gchar* workfile;
   gchar* bibfile;
   gchar* projfile;
 

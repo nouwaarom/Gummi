@@ -76,7 +76,9 @@ void iofunctions_load_default_text(gboolean loopedonce)
 
   if (!g_file_get_contents(C_WELCOMETEXT, &text, NULL, &readerr)) {
     slog(L_WARNING, "Could not find default welcome text, resetting..\n");
+    g_error_free(readerr);
     utils_copy_file(C_DEFAULTTEXT, C_WELCOMETEXT, &copyerr);
+    g_error_free(copyerr);
     if (!loopedonce) return iofunctions_load_default_text(TRUE);
   }
 
